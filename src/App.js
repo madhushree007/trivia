@@ -1,6 +1,8 @@
 import React from "react";
 import "./styles.css";
 import CategorySelector from "./components/CategoriesSelector";
+import Scoreboard from "./components/ScoreBoard";
+import Question from "./components/Question";
 
 export default function App() {
   return (
@@ -11,15 +13,17 @@ export default function App() {
       {/* question header ----------------------- */}
       <div className="question-header">
         <CategorySelector />
-        {/* <Scoreboard /> */}
+        <Scoreboard />
       </div>
 
       {/* the question itself ----------------------- */}
-      <div className="question-main">{/* <Question /> */}</div>
+      <div className="question-main">
+        <Question />
+      </div>
 
       {/* question footer ----------------------- */}
       <div className="question-footer">
-        {/* <button>Go to next question 👉</button> */}
+        <button>Go to next question 👉</button>
       </div>
     </div>
   );
