@@ -1,2 +1,0 @@
-# trivia
-Created with CodeSandbox
