@@ -48,7 +48,7 @@ export default function App() {
           categoryChoose={selectedCategory}
           setCategory={setSelectedCategory}
         />
-        <Scoreboard />
+        <Scoreboard isCorrect={isCorrect} />
       </div>
 
       {/* the question itself ----------------------- */}
