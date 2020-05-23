@@ -3,12 +3,15 @@ import "./styles.css";
 import CategorySelector from "./components/CategoriesSelector";
 import Scoreboard from "./components/ScoreBoard";
 import Question from "./components/Question";
+import ResultModal from "./components/ResultModal";
 
 export default function App() {
   const [question, setQuestion] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("any");
+  const [isCorrect, setIsCorrect] = useState(null);
 
   const getQuestion = useCallback(() => {
+    setIsCorrect(null);
     let url = "https://opentdb.com/api.php?amount=1";
     if (selectedCategory !== "any") url += `&category=${selectedCategory}`;
     fetch(url)
@@ -23,10 +26,21 @@ export default function App() {
     getQuestion();
   }, [getQuestion, selectedCategory]);
 
+  function handleAnswerQuestion(answer) {
+    const newAns = answer === question.correct_answer;
+    setIsCorrect(newAns);
+  }
+
   return (
     <div className="App">
       {/* show the result modal ----------------------- */}
-      {/* <ResultModal /> */}
+      {isCorrect !== null && (
+        <ResultModal
+          getQuestion={getQuestion}
+          question={question}
+          isCorrect={isCorrect}
+        />
+      )}
 
       {/* question header ----------------------- */}
       <div className="question-header">
@@ -39,12 +53,14 @@ export default function App() {
 
       {/* the question itself ----------------------- */}
       <div className="question-main">
-        {question && <Question question={question} />}
+        {question && (
+          <Question question={question} answerQuestion={handleAnswerQuestion} />
+        )}
       </div>
 
       {/* question footer ----------------------- */}
       <div className="question-footer">
-        <button>
+        <button onClick={() => getQuestion()}>
           Go to next question{" "}
           <span role="img" aria-label="go">
             👉
